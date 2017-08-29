@@ -1,0 +1,8 @@
+<h1>Create your fact</h1>
+
+<%= simple_form_for @fact do |f| %>
+  <%= f.input :tweet %>
+  <%= f.input :username %>
+  <br />
+  <%= f.submit 'Create', class: 'btn btn-primary' %>
+<% end %>

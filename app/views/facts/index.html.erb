@@ -1,5 +1,24 @@
 <h1 class="header">Here is a fact, courtesy of <a href="https://twitter.com/factperweek">FactPerWeek</a>.  Refresh for more.</h1>
 
-<br>
+<br />
 
 <p><%= @random_tweet %></p>
+
+<h2>Or, <a href="<%= new_fact_path %>">create your own fact</a>.  Here are some user-created facts:</h2>
+
+<br />
+
+<p><%= @fact.tweet %></p>
+<p>– <%= @fact.username %> (<a href="<%= fact_path(@fact) %>">Leave feedback on this quote</a>) </p>
+
+<h2>Here is some feedback people have left on this fact:</h2>
+
+<% @fact.feedbacks.each do |feedback| %>
+  <div>
+    <blockquote>
+      <p><%= feedback.comment %></p>
+      <p>– <%= feedback.author %> </p>
+    </blockquote>
+  </div>
+<% end %>
+

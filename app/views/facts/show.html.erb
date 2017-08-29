@@ -1,0 +1,11 @@
+<h1>This is a user-generated fact:</h1>
+
+<p><%= @fact.tweet %></p>
+<p>– <%= @fact.username %> </p>
+
+<%= simple_form_for @feedback, url: fact_feedbacks_path(@fact) do |f| %>
+  <%= f.input :comment %>
+  <%= f.input :author %>
+  <br />
+  <%= f.submit 'Add your feedback', class: 'btn btn-primary' %>
+<% end %>

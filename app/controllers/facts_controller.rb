@@ -1,5 +1,10 @@
 class FactsController < ApplicationController
+
   def index
+
+    # This is for user-generated facts.  Grab a random one.
+    @fact = Fact.order("RANDOM()").first
+    @feedback = Feedback.new
 
     # Connect to the Twitter API
     twitter = Twitter::REST::Client.new do |config|
@@ -21,5 +26,33 @@ class FactsController < ApplicationController
     # Capture a random tweet for the index page
     @random_tweet = all_tweets.sample
 
-  end  
+  end
+
+  def new
+    @fact = Fact.new
+  end
+
+  def create
+    @fact = Fact.create(fact_params)
+
+    # Check for validity
+    if @fact.invalid?
+      flash[:error] = '<strong>Could not save</strong> the data you entered is invalid.'
+    end
+
+    redirect_to root_path
+  end
+
+  def show
+    @fact = Fact.find(params[:id])
+    @feedback = Feedback.new
+
+  end
+
+  private
+
+  def fact_params
+    params.require(:fact).permit(:tweet, :username)
+  end
+
 end
